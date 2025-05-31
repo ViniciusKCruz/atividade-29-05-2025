@@ -1,52 +1,60 @@
 // src\components\ListaDeUsuarios\index.js
 
-import { useState, useEffect } from "react";
 import axios from "axios";
-import './styles.css'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./styles.css";
 
 function Cardapio() {
-    const [pratos, setPratos] = useState([])
-    const navigate = useNavigate()
+  const [pratos, setPratos] = useState([]);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const carregarPratos = async () => {
-            try {
-                const response = await axios.get('LINK DA API')
-                setPratos(response.data)
-            } catch (error) {
-                alert('Erro ao buscar Pratos: ', error)
-                setPratos([])
-            }
-        }
-        carregarUsuarios()
-    }, [])
+  useEffect(() => {
+    const carregarPratos = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/restaurantes');
+        setPratos(response.data);
+      } catch (error) {
+        alert("Erro ao buscar Pratos: ", error);
+        setPratos([]);
+      }
+    };
+    carregarPratos();
+  }, []);
 
-    return (
-        <ul id="listaUsurios" className="lista-usuarios">
-            {usuarios.length === 0 ? (
-                <li>Nenhum prato cadastrado</li>
-            ) : (
-                usuarios.map( usuario => (
-                    <div>
-                    <li key={usuario.id}>
-                        <strong>Nome do prato: </strong> {usuario.nome}<br />
-                        <strong>Descrição: </strong> {usuario.sexo}<br />
-                        <strong>Preço: </strong> {usuario.idade}<br />          
-                        <strong>Categoria: </strong> {usuario.altura}<br />
-                        <strong>Disponibilidade </strong> {usuario.peso}<br />
-                        <strong><img url=""/></strong> {usuario.posicao}<br/>           
-                    </li>
+  return (
+    <ul id="listaPratos" className="lista-pratos">
+      {pratos.length === 0 ? (
+        <li>Nenhum prato cadastrado</li>
+      ) : (
+        pratos.map((prato) => (
+          <div>
+            <li key={prato.id}>
+              <strong>Nome do prato: </strong> {prato.nome}
+              <br />
+              <strong>Descrição: </strong> {prato.desccricao}
+              <br />
+              <strong>Preço: </strong> {prato.preco}
+              <br />
+              <strong>Categoria: </strong> {prato.categoria}
+              <br />
+              <strong>Disponibilidade </strong> {prato.disponibilidade}
+              <br />
+              <strong></strong> {prato.imagem}
+              <br />
+            </li>
 
-                    <button onClick={() => navigate('/Cadastro')} className='link-voltar'>
-                    Cadastrar Pratos
-                    </button>
-                    </div>                  
-                ))
-            )}
-        </ul>
-    )
-    
+            <button
+              onClick={() => navigate("/Cadastro")}
+              className="link-voltar"
+            >
+              Cadastrar Pratos
+            </button>
+          </div>
+        ))
+      )}
+    </ul>
+  );
 }
 
-export default Cardapio
+export default Cardapio;

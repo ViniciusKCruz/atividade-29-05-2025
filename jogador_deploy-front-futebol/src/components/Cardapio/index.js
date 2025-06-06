@@ -12,7 +12,7 @@ function Cardapio() {
   useEffect(() => {
     const carregarPratos = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/restaurantes');
+        const response = await axios.get('https://atividade-29-05-2025.onrender.com/restaurantes');
         setPratos(response.data);
       } catch (error) {
         alert("Erro ao buscar Pratos: ", error);

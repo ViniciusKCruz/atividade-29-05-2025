@@ -20,7 +20,7 @@ function FormularioCadastro() {
 
   const cadastrarUsuario = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/restaurantes", {
+      const response = await axios.post('https://atividade-29-05-2025.onrender.com/restaurantes', {
         nome,
         descricao,
         preco,
